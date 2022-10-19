@@ -16,9 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from myapp.views import index,new_one
+from django.conf.urls.static import static
+from mysite import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('myapp/new',new_one),
-    path('myapp/',include('myapp.urls'))
+    path('myapp/',include('myapp.urls')),
+     path("__reload__/", include("django_browser_reload.urls")),
  ]
+
+
+urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
