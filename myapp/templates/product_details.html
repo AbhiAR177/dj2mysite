@@ -1,43 +1,20 @@
-<htmL>
-    <head>
-        <style>
-        .card {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            max-width: 400px;
-            margin: auto;
-            text-align: center;
-            font-family:arial;
-          }
-          
-          .price {
-            color: grey;
-            font-size: 22px;
-          }
-          
-          .card button {
-            border: none;
-            outline: 0;
-            padding: 12px;
-            color: white;
-            background-color: #000;
-            text-align: center;
-            cursor: pointer;
-            width: 100%;
-            font-size: 18px;
-          }
-          
-          .card button:hover {
-            opacity: 0.7;
-          }
-          </style>
-    </head>
-    <body>
-        <div class="card">
-            <img src="{{p.image.url}}" alt="image loading..." style="width:100%">
-            <h1>{{p.name}}</h1>
-            <p class="price">₹{{p.price }}</p>
-            <p>{{p.desc}}</p>
-            <p><button>Add to Cart</button></p>
-          </div>
-    </body>
-    </html>
+{% extends "base.html" %}
+{% block contents %}
+<!-- <div class="card w-30 h-30">
+  <img class="w-20 h-30" src="{{p.image.url}}" alt="image loading..." style="width:100%">
+  <h1>{{p.name}}</h1>
+  <p class="price">₹{{p.price }}</p>
+  <p>{{p.desc}}</p>
+  <p><button>Add to Cart</button></p>
+</div> -->
+<div class="card w-96 bg-base-100 shadow-xl">
+  <figure><img src="{{p.image.url}}" alt="Shoes" /></figure>
+  <div class="card-body">
+    <h2 class="card-title">{{p.name}}</h2>
+    <p>{{p.desc}}</p>
+    <div class="card-actions justify-end">
+      <button class="btn btn-primary">₹{{p.price}}</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
