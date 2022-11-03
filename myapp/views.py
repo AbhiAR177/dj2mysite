@@ -2,6 +2,7 @@ from hashlib import new
 from multiprocessing import context
 from unicodedata import name
 from django.shortcuts import HttpResponse, redirect, render
+from django.contrib.auth.decorators import login_required
 
 from myapp.models import ProductModel
 from django.db.models import Q
@@ -14,7 +15,7 @@ def index(request):
 def new_one(request):
     return HttpResponse("this is new")  
 
-
+@login_required
 def products(request):
     p = ProductModel.objects.all()
     context = {'products':p}
@@ -71,6 +72,7 @@ def delete_product(request,id):
     
     
     if request.method == 'POST':
+        
         p.delete()
         
         
