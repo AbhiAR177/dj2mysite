@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from myapp.models import ProductModel
 from django.db.models import Q
+from django.views.generic import ListView,TemplateView,DetailView,CreateView,DeleteView,UpdateView
 
 def index(request):
     li = ["abi","anu","aju"]
@@ -13,19 +14,31 @@ def index(request):
     return render(request,'ig.html',context=context)
 
 def new_one(request):
-    return HttpResponse("this is new")  
+    return HttpResponse("this is new")
+
+class ProductListView(ListView):
+    model = ProductModel
+    template_name = 'products.html' 
+    context_object_name = 'products'
+
+# @login_required
+# def products(request):
+#     p = ProductModel.objects.all()
+#     context = {'products':p}
+#     return render(request,'products.html',context=context)
+
+class ProductDetailView(DetailView):
+    model = ProductModel
+    template_name = 'product_details.html' 
+    context_object_name = 'p'
+    
+    
+# def product_details(request,id):
+#     p = ProductModel.objects.get(id=id)
+#     context={'p':p}
+#     return render(request,'product_details.html',context=context)
 
 @login_required
-def products(request):
-    p = ProductModel.objects.all()
-    context = {'products':p}
-    return render(request,'products.html',context=context)
-
-def product_details(request,id):
-    p = ProductModel.objects.get(id=id)
-    context={'p':p}
-    return render(request,'product_details.html',context=context)
-
 def add_product(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -33,7 +46,7 @@ def add_product(request):
         desc = request.POST.get('desc')
         image = request.FILES['upload']
     
-        p = ProductModel(name=name,price=price,desc=desc,image=image)
+        p = ProductModel(name=name,price=price,desc=desc,image=image,seller=request.user)
         p.save() 
         
         

@@ -2,6 +2,7 @@
 {% block contents %}
 <div class="grid grid-cols-3 grid-flow-row gap-1">
 
+
   {% for p in products %}
   <a href="{% url 'myapp:product_details' p.id %}">
     <div class="card w-96 glass mt-10">

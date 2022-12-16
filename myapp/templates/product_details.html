@@ -1,19 +1,15 @@
 {% extends "base.html" %}
 {% block contents %}
-<!-- <div class="card w-30 h-30">
-  <img class="w-20 h-30" src="{{p.image.url}}" alt="image loading..." style="width:100%">
-  <h1>{{p.name}}</h1>
-  <p class="price">₹{{p.price }}</p>
-  <p>{{p.desc}}</p>
-  <p><button>Add to Cart</button></p>
-</div> -->
+
 <div class="card w-96 bg-base-100 shadow-xl">
   <figure><img src="{{p.image.url}}" alt="Shoes" /></figure>
   <div class="card-body">
-    <h2 class="card-title">{{p.name}}</h2>
+    <h2 class="card-title font-bold">{{p.name}}</h2>
     <p>{{p.desc}}</p>
+    <div class="text-green-600">Sold By : {{p.seller}} </div>
+    <a href="{% url 'users:sellerprofile' p.seller.id %}"><div class="text-sm">seller details</div></a>
     <div class="card-actions justify-end">
-      <button class="btn btn-primary">₹{{p.price}}</button>
+      <button class="btn btn-primary font-bold">₹{{p.price}}</button>
     </div>
   </div>
 </div>
