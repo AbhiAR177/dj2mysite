@@ -10,6 +10,10 @@
     <a href="{% url 'users:sellerprofile' p.seller.id %}"><div class="text-sm">seller details</div></a>
     <div class="card-actions justify-end">
       <button class="btn btn-primary font-bold">₹{{p.price}}</button>
+      <form action="/add-to-cart" class="d-inline">
+        <input type="hidden" name="product_id" value="{{p.id}}"/>
+      <button class="btn btn-primary font-bold" type="submit"><small>Add to cart</small></button>
+      </form>
     </div>
   </div>
 </div>

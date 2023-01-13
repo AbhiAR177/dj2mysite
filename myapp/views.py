@@ -4,7 +4,7 @@ from unicodedata import name
 from django.shortcuts import HttpResponse, redirect, render
 from django.contrib.auth.decorators import login_required
 
-from myapp.models import ProductModel
+from myapp.models import ProductModel,Cart
 from django.db.models import Q
 from django.views.generic import ListView,TemplateView,DetailView,CreateView,DeleteView,UpdateView
 
@@ -29,7 +29,7 @@ class ProductListView(ListView):
 
 class ProductDetailView(DetailView):
     model = ProductModel
-    template_name = 'product    _details.html' 
+    template_name = 'product_details.html' 
     context_object_name = 'p'
     
     
@@ -92,3 +92,17 @@ def delete_product(request,id):
         return redirect('/myapp/products')
     
     return render(request,'delete_product.html',context=context)
+
+
+def add_to_cart(request):
+    p = ProductModel.objects.get(id=id)
+    user=request.user
+    product = ProductModel.objects.get(id=id)
+    Cart(user=user,product=product).save()
+    return redirect("myapp/cart")
+
+
+def show_cart(request):
+    user = request.user
+    cart = Cart.objects.filter(user=user)
+    return render(request, 'addtocart.html',locals())
